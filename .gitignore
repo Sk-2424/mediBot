@@ -173,3 +173,4 @@ cython_debug/
 # Ignoring Files
 .env
 demo.ipynb
+logs

@@ -10,6 +10,7 @@ from langchain.memory import ConversationBufferWindowMemory
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_pinecone import PineconeVectorStore
 
+import streamlit as st
 
 def create_retriever(index_name,embeddings):
     docsearch = PineconeVectorStore.from_existing_index(
@@ -63,30 +64,25 @@ def create_rag_chain(retriever):
         question_answer_chain = create_stuff_documents_chain(llm, qa_prompt)
 
         #Use ConversationBufferWindowMemory instead of manual dictionary storage
-        memory = ConversationBufferWindowMemory(memory_key="chat_history", k=5,return_messages=True)
+        # memory = ConversationBufferWindowMemory(memory_key="chat_history", k=5,return_messages=True)
         
         #creating Final chain
         bot_chain = create_retrieval_chain(history_aware_retriever,question_answer_chain)
         
         logging.info("Final Rag Chain is created")
-        return bot_chain,memory
+        return bot_chain
     except Exception as e:
         # print(f"Error in create_rag_chain: {e}")
         logging.info(CustomException(e,sys))
         raise CustomException(e,sys)
 
 
-def ask_question(query,bot_chain,memory):
+def ask_question(input_data,bot_chain):
     try:   
-        input_data = {"chat_history": memory.load_memory_variables({})["chat_history"], "input": query}
         response = bot_chain.invoke(input_data)
         logging.info("Got the response of the query")
-
-        memory.save_context({"input": query}, {"answer": response["answer"]})
-        logging.info("Latest conversation is saved in memory ")
         return response['answer']
     except Exception as e:
-        # pass
         logging.info(CustomException(e,sys))
         raise CustomException(e,sys)
     
