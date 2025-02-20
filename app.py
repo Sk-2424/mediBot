@@ -17,8 +17,8 @@ from src.chains import create_rag_chain, ask_question, create_retriever, clear_m
 load_dotenv()
 
 # Get API keys
-PINECONE_API_KEY = os.environ.get("PINECONE_API_KEY")
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+PINECONE_API_KEY = st.secrets.get("PINECONE_API_KEY", os.getenv("PINECONE_API_KEY"))
+OPENAI_API_KEY = st.secrets.get("OPENAI_API_KEY", os.getenv("OPENAI_API_KEY"))
 
 # Initialize embeddings and retriever
 embeddings = OpenAIEmbeddings()

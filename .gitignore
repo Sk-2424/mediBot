@@ -174,3 +174,5 @@ cython_debug/
 .env
 demo.ipynb
 logs
+.streamlit
+secrets.toml
