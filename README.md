@@ -1,7 +1,5 @@
 # Medibot 
 
-![Medibot Banner](https://via.placeholder.com/1000x300?text=Medibot+-+AI+Powered+Medical+Advisory+Bot)
-
 ## 🤖 About Medibot  
 Medibot is an AI-powered medical advisory bot designed to assist users with health-related queries. It leverages advanced AI models to provide insightful and accurate medical advice. Additionally, it maintains the context of previous conversations, ensuring a seamless and personalized user experience.
 
